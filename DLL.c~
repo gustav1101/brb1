@@ -1,0 +1,83 @@
+#include "DLL.h"
+
+int main(int argc, char ** argv)
+{
+  int* numbers;
+
+  if( 1 == argc )
+  {
+    printf("Please enter integer arguments.\n");
+    return 0;
+  }
+
+  debug(1,argv[1]);
+  
+  numbers = parseInput(argc, argv);
+
+  printResults(numbers, argc-1);
+
+  free(numbers);
+
+  return 0;
+}
+
+
+int* parseInput(int argc, char**argv)
+{
+  int i;
+  int* ret = (int*) malloc( (argc-1) * sizeof(int));
+
+  for(i = 1; i < argc; i++)
+  {
+    ret[i-1] = (int) ( (*argv[i]) - '0');
+  }
+
+
+  return ret;
+}
+
+void printResults(int* numbers, int limit)
+{
+  int i;
+  int* iterator;
+
+  iterator = numbers;
+  printf("Result is");
+  for(i = 0; i < limit; i++)
+  {
+    printf(" %d",iterator[i]);
+  }
+  printf(".\n");
+
+  return;
+}
+
+
+void debug(int lim, char* str)
+{
+  /*int pwr;
+  int val;
+  int i;
+  
+  pwr = 1;
+  val = 0;
+  i = 0;
+  while( *str!=0 )
+  {
+    printf("%d\n",*str-'0');
+    i ++; 
+    str++;
+  }
+  printf("%d\n",i);
+  for(i; i > 0; i--)
+  {
+    val +=pwr * ((int) *str - '0');
+    pwr *= 10;
+  }
+
+  printf("value: %d",val);*/
+
+
+  int val = 0;
+  //if (sscanf(str)
+}

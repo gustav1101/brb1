@@ -1,0 +1,13 @@
+#ifndef DLLH_
+#define DLLH_
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int* parseInput(int argc, char** argv);
+void printResults(int* numbers, int limit);
+void debug(int lim, char* str);
+
+
+#endif
