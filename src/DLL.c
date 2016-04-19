@@ -1,78 +1,60 @@
 #include "DLL.h"
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <stdbool.h>
 
+Node* first;
+Node* cur;
 
-int main(int argc, char ** argv)
+int add(int val)
 {
-  int* numbers;
+    Node* newNode;
 
-  if( 1 == argc )
-  {
-    printf("Please enter integer arguments.\n");
+    newNode = malloc(sizeof(Node));
+
+    if (newNode == NULL )
+    {
+	return 1;
+    }
+    
+
+
+    newNode->val = val;
+
+    return addNode(newNode);
+}
+
+
+int addNode(Node* node)
+{
+    if(first == NULL)
+    {
+        first = node;
+	cur = node;
+    }
+    else {
+	cur->next = node;
+	node->prev = cur;
+	cur = node;
+    }
+
     return 0;
-  }
 
-  numbers = parseInput(argc, argv);
-
-  if (numbers == NULL)
-  {
-      return 1;
-  }
-
-  printResults(numbers, argc-1);
-
-  free(numbers);
-
-  return 0;
 }
 
-
-int* parseInput(int argc, char**argv)
+int hasNext()
 {
-  int i;
-  int* ret;
-  int *val;
-
-  ret = (int*) malloc( (argc-1) * sizeof(int));
-  val = ret;
-  
-  for (i = 1; i < argc; i++)
-  {
-      if (sscanf(argv[i], "%d", val) == EOF)
-      {
-	  fprintf(stderr, "Incorrect value for parsing");
-	  return NULL;
-      }
-      if(i+1<argc)
-      {
-	  val++;
-      }
-  }
-
-  
-  return ret;
+    if(cur->next == NULL)
+    {
+	return 0;
+    }
+    return 1;
 }
+    
 
-void printResults(int* numbers, int limit)
+void printList()
 {
-  int i;
-  int* iterator;
+    Node* temp = first;
 
-  iterator = numbers;
-  printf("Result is");
-  for(i = 0; i < limit; i++)
-  {
-    printf(" %d",iterator[i]);
-  }
-  printf(".\n");
+    
 
-  return;
-}
-
-
-int debug(int lim, char* str)
-{
-    return 0;
 }

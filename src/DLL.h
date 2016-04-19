@@ -1,19 +1,18 @@
-#ifndef DLLH_
-#define DLLH_
+#ifndef DLL_H_
+#define DLL_H_
 
-struct Node {
+
+typedef struct Node
+{
     int val;
-    Node* prev;
-    Node* next;
-}
-
-    
-int* parseInput(int argc, char** argv);
-void printResults(int* numbers, int limit);
-int debug(int lim, char* str);
-void addNode(Node n);
-void addNode(int val);
+    struct Node* prev;
+    struct Node* next;
+} Node;
 
 
+extern int add(int val);
+extern int addNode(Node* node);
+int hasNext();
+void printList();
 
 #endif
