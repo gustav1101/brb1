@@ -7,6 +7,7 @@
 int main(int argc, char ** argv)
 {
   int* numbers;
+  int i;
 
   if( 1 == argc )
   {
@@ -21,10 +22,14 @@ int main(int argc, char ** argv)
       return 1;
   }
 
-  printResults(numbers, argc-1);
+  //printResults(numbers, argc-1);
 
+  for(i = 0; i<argc-1; i++)
+  {
+      add(numbers[i]);
+  }
 
-  add(numbers[0]);
+  printList();
   
   
   free(numbers);

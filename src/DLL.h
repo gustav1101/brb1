@@ -1,6 +1,6 @@
 #ifndef DLL_H_
 #define DLL_H_
-
+#include <stdbool.h>
 
 typedef struct Node
 {
@@ -12,7 +12,8 @@ typedef struct Node
 
 extern int add(int val);
 extern int addNode(Node* node);
-int hasNext();
+bool hasNext();
+bool isEmpty();
 void printList();
 
 #endif

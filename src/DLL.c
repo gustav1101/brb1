@@ -1,6 +1,6 @@
-#include "DLL.h"
 #include <stdlib.h>
-#include <stdbool.h>
+#include <stdio.h>
+#include "DLL.h"
 
 Node* first;
 Node* cur;
@@ -36,25 +36,42 @@ int addNode(Node* node)
 	node->prev = cur;
 	cur = node;
     }
-
+    printf("Added Node with value %d\n",cur->val);
     return 0;
 
 }
 
-int hasNext()
+bool hasNext()
 {
     if(cur->next == NULL)
     {
-	return 0;
+	return false;
     }
-    return 1;
+    return true;
 }
     
+bool isEmpty()
+{
+    return (first == NULL);
+}
 
 void printList()
 {
+    if (isEmpty() )
+    {
+	printf("List is empty");
+	return;
+    }
+    
     Node* temp = first;
 
-    
+    printf("Values:");
+    do
+    {
+	printf(" %d",temp->val);
+	temp = temp->next;
+    }while(temp != NULL);
+
+    printf("\n");
 
 }
