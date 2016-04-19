@@ -9,15 +9,24 @@ typedef struct Node
     struct Node* next;
 } Node;
 
+typedef struct DLL
+{
+    Node* first;
+    Node * last;
+    Node* cur;
+} DLL;
 
-int add(int val);
-int addNode(Node* node);
-bool hasNext();
-bool isEmpty();
-void printList();
-void reset();
-bool next();
-bool prev();
-void clearList();
+
+DLL* newList();
+int add(int val, DLL* list);
+int addNode(Node* node, DLL* list);
+bool hasNext(DLL* list);
+bool isEmpty(DLL* list);
+void printList(DLL* list);
+void reset(DLL* list);
+bool next(DLL* list);
+bool prev(DLL* list);
+void clearList(DLL* list);
+
 
 #endif

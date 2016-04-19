@@ -2,11 +2,18 @@
 #include <stdio.h>
 #include "DLL.h"
 
-Node* first;
-Node* last;
-Node* cur;
+//Node* first;
+//Node* last;
+//Node* cur;
 
-int add(int val)
+
+DLL* newList()
+{
+    DLL* ret = malloc(sizeof(DLL));
+    return ret;
+}
+
+int add(int val, DLL* list)
 {
     Node* newNode;
 
@@ -17,73 +24,71 @@ int add(int val)
 	return 1;
     }
     
-
-
     newNode->val = val;
 
-    return addNode(newNode);
+    return addNode(newNode,list);
 }
 
 
-int addNode(Node* node)
+int addNode(Node* node, DLL* list)
 {
     //if no elements in list
-    if( isEmpty() )
+    if( isEmpty(list) )
     {
-        first = node;
-	last = node;
+        list->first = node;
+	list->last = node;
     }
     else {
-	if(hasNext())
+	if(hasNext(list))
 	{
 	    //set next node to point at new node
-	    cur->next->prev = node;
+	    list->cur->next->prev = node;
 	    //set new node's next to originally next node
-	    node->next = cur->next;
+	    node->next = list->cur->next;
 	}
 	else //we're at the end of the list
 	{
 	    //adjust 'last' pointer
-	    last = node;
+	    list->last = node;
 	}
 	//in any case, set current's next to the new node
-	cur->next = node;
+	list->cur->next = node;
 	//and the node's previous to current
-	node->prev = cur;
+	node->prev = list->cur;
 	
     }
 
     //set current to the new node
-    cur = node;
+    list->cur = node;
 
-    printf("Added Node with value %d\n",cur->val);
+    printf("Added Node with value %d\n",list->cur->val);
     return 0;
 
 }
 
-bool hasNext()
+bool hasNext(DLL* list)
 {
-    if(cur->next == NULL)
+    if(list->cur->next == NULL)
     {
 	return false;
     }
     return true;
 }
     
-bool isEmpty()
+bool isEmpty(DLL* list)
 {
-    return (first == NULL);
+    return (list->first == NULL);
 }
 
-void printList()
+void printList(DLL* list)
 {
-    if (isEmpty() )
+    if ( isEmpty(list) )
     {
 	printf("List is empty");
 	return;
     }
     
-    Node* temp = first;
+    Node* temp = list->first;
 
     printf("Values:");
     do
@@ -96,54 +101,54 @@ void printList()
 
 }
 
-void reset()
+void reset(DLL* list)
 {
-    cur = first;
+    list->cur = list->first;
 }
 
 
 
-bool next()
+bool next(DLL* list)
 {
-    if(cur == NULL || cur->next == NULL)
+    if(list->cur == NULL || list->cur->next == NULL)
     {
 	return false;
     }
-    cur = cur->next;
+    list->cur = list->cur->next;
     return true;
 }
 
-bool prev()
+bool prev(DLL* list)
 {
-    if(cur == NULL || cur->prev == NULL)
+    if(list->cur == NULL || list->cur->prev == NULL)
     {
 	return false;
     }
-    cur = cur->prev;
+    list->cur = list->cur->prev;
     return true;
 }
 
 
-void clearList()
+void clearList(DLL* list)
 {
-    cur = last;
+    list->cur = list->last;
 
     //if list has no elements
-    if( isEmpty() )
+    if( isEmpty(list) )
     {
 	return;
     }
 
 
     //go through list from last to first entry
-    while( prev() )
+    while( prev(list) )
     {
 	//free the next element
-	free(cur->next);
+	free(list->cur->next);
     }
 
     //now, we are at the first element. Free that as well.
-    free(cur);
+    free(list->cur);
 
 
     //Dobby is free!

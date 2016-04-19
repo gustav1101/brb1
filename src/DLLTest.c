@@ -8,7 +8,8 @@ int main(int argc, char ** argv)
 {
   int* numbers;
   int i;
-
+  DLL* list;
+  
   if( 1 == argc )
   {
     printf("Please enter integer arguments.\n");
@@ -23,19 +24,24 @@ int main(int argc, char ** argv)
   }
 
   //printResults(numbers, argc-1);
-
+  list = malloc(sizeof(DLL));
+  
   for(i = 0; i<argc-1; i++)
   {
-      add(numbers[i]);
+      add(numbers[i], list);
   }
 
+
+  prev(list);
+  add(5,list);
   free(numbers);
 
-  printList();
+  printList(list);
   
   
-  clearList();
+  clearList(list);
 
+  free(list);
   
   return 0;
 }
