@@ -14,6 +14,7 @@ typedef struct DLL
     Node* first;
     Node * last;
     Node* cur;
+    int size;
 } DLL;
 
 
@@ -27,6 +28,5 @@ void reset(DLL* list);
 bool next(DLL* list);
 bool prev(DLL* list);
 void clearList(DLL* list);
-
 
 #endif

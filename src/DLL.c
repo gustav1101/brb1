@@ -2,14 +2,12 @@
 #include <stdio.h>
 #include "DLL.h"
 
-//Node* first;
-//Node* last;
-//Node* cur;
 
 
 DLL* newList()
 {
     DLL* ret = malloc(sizeof(DLL));
+    ret->size = 0;
     return ret;
 }
 
@@ -60,6 +58,8 @@ int addNode(Node* node, DLL* list)
 
     //set current to the new node
     list->cur = node;
+
+    list->size++;
 
     printf("Added Node with value %d\n",list->cur->val);
     return 0;
@@ -129,6 +129,8 @@ bool prev(DLL* list)
 }
 
 
+
+
 void clearList(DLL* list)
 {
     list->cur = list->last;
@@ -150,6 +152,7 @@ void clearList(DLL* list)
     //now, we are at the first element. Free that as well.
     free(list->cur);
 
+    free(list);
 
     //Dobby is free!
 }

@@ -40,8 +40,6 @@ int main(int argc, char ** argv)
   
   
   clearList(list);
-
-  free(list);
   
   return 0;
 }
