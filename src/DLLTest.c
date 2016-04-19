@@ -29,11 +29,12 @@ int main(int argc, char ** argv)
       add(numbers[i]);
   }
 
+  free(numbers);
+
   printList();
   
   
-  free(numbers);
-
+  clearList();
 
   
   return 0;

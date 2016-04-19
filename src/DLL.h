@@ -10,10 +10,14 @@ typedef struct Node
 } Node;
 
 
-extern int add(int val);
-extern int addNode(Node* node);
+int add(int val);
+int addNode(Node* node);
 bool hasNext();
 bool isEmpty();
 void printList();
+void reset();
+bool next();
+bool prev();
+void clearList();
 
 #endif

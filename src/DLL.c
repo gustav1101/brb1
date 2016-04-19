@@ -3,6 +3,7 @@
 #include "DLL.h"
 
 Node* first;
+Node* last;
 Node* cur;
 
 int add(int val)
@@ -26,16 +27,35 @@ int add(int val)
 
 int addNode(Node* node)
 {
-    if(first == NULL)
+    //if no elements in list
+    if( isEmpty() )
     {
         first = node;
-	cur = node;
+	last = node;
     }
     else {
+	if(hasNext())
+	{
+	    //set next node to point at new node
+	    cur->next->prev = node;
+	    //set new node's next to originally next node
+	    node->next = cur->next;
+	}
+	else //we're at the end of the list
+	{
+	    //adjust 'last' pointer
+	    last = node;
+	}
+	//in any case, set current's next to the new node
 	cur->next = node;
+	//and the node's previous to current
 	node->prev = cur;
-	cur = node;
+	
     }
+
+    //set current to the new node
+    cur = node;
+
     printf("Added Node with value %d\n",cur->val);
     return 0;
 
@@ -74,4 +94,57 @@ void printList()
 
     printf("\n");
 
+}
+
+void reset()
+{
+    cur = first;
+}
+
+
+
+bool next()
+{
+    if(cur == NULL || cur->next == NULL)
+    {
+	return false;
+    }
+    cur = cur->next;
+    return true;
+}
+
+bool prev()
+{
+    if(cur == NULL || cur->prev == NULL)
+    {
+	return false;
+    }
+    cur = cur->prev;
+    return true;
+}
+
+
+void clearList()
+{
+    cur = last;
+
+    //if list has no elements
+    if( isEmpty() )
+    {
+	return;
+    }
+
+
+    //go through list from last to first entry
+    while( prev() )
+    {
+	//free the next element
+	free(cur->next);
+    }
+
+    //now, we are at the first element. Free that as well.
+    free(cur);
+
+
+    //Dobby is free!
 }
