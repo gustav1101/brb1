@@ -6,12 +6,16 @@
 
 DLL* newList()
 {
-    DLL* ret = malloc(sizeof(DLL));
+    DLL* ret;
+    ret = malloc(sizeof(DLL));
+    ret->first = NULL;
+    ret->last = NULL;
+    ret->cur = NULL;
     ret->size = 0;
     return ret;
 }
 
-int add(int val, DLL* list)
+bool add(int val, DLL* list)
 {
     Node* newNode;
 
@@ -19,16 +23,20 @@ int add(int val, DLL* list)
 
     if (newNode == NULL )
     {
-	return 1;
+	return false;
     }
     
     newNode->val = val;
 
+    newNode->next = NULL;
+    newNode->prev = NULL;
+    
     return addNode(newNode,list);
 }
 
 
-int addNode(Node* node, DLL* list)
+
+bool addNode(Node* node, DLL* list)
 {
     //if no elements in list
     if( isEmpty(list) )
@@ -61,10 +69,26 @@ int addNode(Node* node, DLL* list)
 
     list->size++;
 
-    printf("Added Node with value %d\n",list->cur->val);
-    return 0;
+    return true;
 
 }
+
+bool insertCopyNode(Node* node, DLL* list)
+{
+    return add(node->val,list);
+
+}
+
+
+int peek(DLL* list)
+{
+    if (list->cur == NULL)
+    {
+	return -1;
+    }
+    return list->cur->val;
+}
+
 
 bool hasNext(DLL* list)
 {
@@ -82,23 +106,27 @@ bool isEmpty(DLL* list)
 
 void printList(DLL* list)
 {
+    Node* temp;
+
     if ( isEmpty(list) )
     {
 	printf("List is empty");
 	return;
     }
     
-    Node* temp = list->first;
+    temp = list->cur;
 
+    reset(list);
     printf("Values:");
     do
     {
-	printf(" %d",temp->val);
-	temp = temp->next;
-    }while(temp != NULL);
+	printf(" %d",peek(list));
+	
+    }while( next(list) );
 
     printf("\n");
 
+    list->cur = temp;
 }
 
 void reset(DLL* list)

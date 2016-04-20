@@ -19,8 +19,10 @@ typedef struct DLL
 
 
 DLL* newList();
-int add(int val, DLL* list);
-int addNode(Node* node, DLL* list);
+bool add(int val, DLL* list);
+bool addNode(Node* node, DLL* list);
+bool insertCopyNode(Node* node, DLL* list);
+int peek(DLL* list);
 bool hasNext(DLL* list);
 bool isEmpty(DLL* list);
 void printList(DLL* list);
