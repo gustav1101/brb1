@@ -1,6 +1,6 @@
 #MakeFile for first Task paper
 
-bin/DLLTest: src/DLL.c src/DLLTest.c
+bin/DLLTest: src/DLL.c src/DLLTest.c src/Mergesort.c
 	gcc -Wall -g -o bin/DLLTest src/DLLTest.c src/DLL.c src/Mergesort.c
 
 test: bin/DLLTest

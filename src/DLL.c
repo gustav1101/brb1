@@ -3,10 +3,9 @@
 #include "DLL.h"
 
 
-
 DLL* newList()
 {
-    DLL* ret;
+    DLL* ret;  //return this later
     ret = malloc(sizeof(DLL));
     ret->first = NULL;
     ret->last = NULL;
@@ -17,20 +16,24 @@ DLL* newList()
 
 bool add(int val, DLL* list)
 {
+    //Create new node
+
     Node* newNode;
 
     newNode = malloc(sizeof(Node));
 
+    //check if malloc was successful
     if (newNode == NULL )
     {
 	return false;
     }
-    
+
     newNode->val = val;
 
     newNode->next = NULL;
     newNode->prev = NULL;
     
+    //call addNode to actually add the node into the list
     return addNode(newNode,list);
 }
 
@@ -67,21 +70,24 @@ bool addNode(Node* node, DLL* list)
     //set current to the new node
     list->cur = node;
 
+    //and increase list size
     list->size++;
 
-    return true;
+    return true;  //all good if we reached this point.
 
 }
 
 bool insertCopyNode(Node* node, DLL* list)
 {
+    //just call add with the value of the original node
     return add(node->val,list);
-
 }
 
 
 int peek(DLL* list)
 {
+    //This might not be very efficient to handle not initialised current,
+    //but this should never happen in first place...
     if (list->cur == NULL)
     {
 	return -1;
@@ -106,26 +112,29 @@ bool isEmpty(DLL* list)
 
 void printList(DLL* list)
 {
-    Node* temp;
+    Node* temp;  //will be used to rebuild current value
 
     if ( isEmpty(list) )
     {
 	printf("List is empty");
 	return;
     }
-    
+
+    //save current
     temp = list->cur;
 
+    //first reset list, then iterate through and print each value
     reset(list);
     printf("Values:");
+
     do
     {
-	printf(" %d",peek(list));
-	
+	printf(" %d",peek(list));	
     }while( next(list) );
 
-    printf("\n");
+    printf("\n"); //new line...
 
+    //restore current
     list->cur = temp;
 }
 
@@ -161,7 +170,7 @@ bool prev(DLL* list)
 
 void clearList(DLL* list)
 {
-    list->cur = list->last;
+    list->cur = list->last; //iterate from rear to front.
 
     //if list has no elements
     if( isEmpty(list) )
@@ -173,13 +182,14 @@ void clearList(DLL* list)
     //go through list from last to first entry
     while( prev(list) )
     {
-	//free the next element
+	//free the prev element
 	free(list->cur->next);
     }
 
     //now, we are at the first element. Free that as well.
     free(list->cur);
 
+    //finally free the list element itself
     free(list);
 
     //Dobby is free!
